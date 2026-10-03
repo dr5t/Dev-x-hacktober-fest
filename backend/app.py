@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pdf_utils import extract_text_from_file
 import ollama_client
+from config import PORT
 
 app = Flask(__name__)
 CORS(app)
@@ -107,5 +108,4 @@ def handle_ask():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    from config import PORT
     app.run(host="0.0.0.0", port=PORT, debug=True)

@@ -15,7 +15,7 @@ def get_ollama_status():
                 "default_model": DEFAULT_MODEL,
                 "error": None
             }
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException:
         return {
             "connected": False,
             "models": [],
@@ -85,13 +85,12 @@ def generate_quiz(text, num_questions=5, model=None):
         '    "explanation": "Brief explanation of why this answer is correct based on the material."\n'
         "  }\n"
         "]\n"
-        "Do NOT include markdown formatting or extra conversational text outside the JSON array."
+        "Do NOT include markdown formatting or extra text outside the JSON array."
     )
     prompt = f"Study Material:\n\n{text}\n\nTask: Generate exactly {num_questions} multiple choice quiz questions based on the material."
     
     raw_response = query_ollama(prompt, system_prompt=system, model=model, format_json=True)
     
-    # Try parsing JSON directly or regex matching JSON array
     try:
         return json.loads(raw_response)
     except json.JSONDecodeError:
