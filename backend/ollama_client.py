@@ -72,6 +72,17 @@ def generate_revision_notes(text, model=None):
     prompt = f"Study Material:\n\n{text}\n\nTask: Produce high-impact exam revision notes from this material."
     return query_ollama(prompt, system_prompt=system, model=model)
 
+def _ensure_list(data):
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict):
+        if "quiz" in data and isinstance(data["quiz"], list):
+            return data["quiz"]
+        if "questions" in data and isinstance(data["questions"], list):
+            return data["questions"]
+        return [data]
+    return []
+
 def generate_quiz(text, num_questions=5, model=None):
     system = (
         "You are an educational assessment generator. Output ONLY a valid JSON array containing multiple-choice quiz questions. "
@@ -92,12 +103,19 @@ def generate_quiz(text, num_questions=5, model=None):
     raw_response = query_ollama(prompt, system_prompt=system, model=model, format_json=True)
     
     try:
-        return json.loads(raw_response)
+        parsed = json.loads(raw_response)
+        return _ensure_list(parsed)
     except json.JSONDecodeError:
         match = re.search(r'\[.*\]', raw_response, re.DOTALL)
         if match:
             try:
-                return json.loads(match.group(0))
+                return _ensure_list(json.loads(match.group(0)))
+            except json.JSONDecodeError:
+                pass
+        match_obj = re.search(r'\{.*\}', raw_response, re.DOTALL)
+        if match_obj:
+            try:
+                return _ensure_list(json.loads(match_obj.group(0)))
             except json.JSONDecodeError:
                 pass
         raise RuntimeError("Failed to parse AI output into valid quiz format. Please try generating again.")

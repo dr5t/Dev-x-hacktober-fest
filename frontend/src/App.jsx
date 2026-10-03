@@ -8,9 +8,9 @@ import StatusView from './components/StatusView';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('study');
-  const [status, setStatus] = useState({ connected: false, models: [], default_model: 'llama3.2', error: null });
+  const [status, setStatus] = useState({ connected: false, models: [], default_model: 'qwen2.5:0.5b', error: null });
   const [loadingStatus, setLoadingStatus] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('llama3.2');
+  const [selectedModel, setSelectedModel] = useState('qwen2.5:0.5b');
 
   const [studyText, setStudyText] = useState('');
   const [uploading, setUploading] = useState(false);

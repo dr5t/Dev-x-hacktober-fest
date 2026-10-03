@@ -1,56 +1,55 @@
 # StudyBuddy Local
 
-> A private, open-weight AI study companion designed to summarize, explain, revise, and generate quizzes from your personal study material locally on your machine.
+> A private, open-weight AI study companion that summarizes, explains, revises, and generates quizzes from study material locally on your computer.
 
 ---
 
 ## What It Is
 
-**StudyBuddy Local** was built for a real friend who struggles with organizing, understanding, and revising scattered study notes across multiple subjects. 
+[ADD REAL FRIEND STORY HERE]
 
-Rather than sending sensitive course materials, lecture notes, or personal summaries to third-party cloud APIs, StudyBuddy Local runs completely on the user's computer using open-weight AI models via Ollama.
+**StudyBuddy Local** is a private study companion designed for students who struggle with organizing, understanding, and revising scattered study material across multiple subjects. 
+
+Instead of sending course material, lecture notes, or personal summaries to cloud AI services, StudyBuddy Local runs open-weight AI models locally on the user's machine using Ollama.
 
 ---
 
 ## Problem
 
 Students face two major issues when preparing for exams:
-1. **Scattered Material & Overwhelm:** Notes, slides, and textbook extracts are hard to turn into actionable revision points or quizzes quickly.
-2. **Privacy & API Costs:** Uploading course material, unpublished notes, or private documents to proprietary cloud AI services exposes private data and often incurs per-token subscription costs.
+1. **Scattered Material & Overwhelm:** Turning textbook notes and lecture slides into actionable study guides or quizzes takes significant manual effort.
+2. **Privacy & Cloud API Costs:** Uploading unpublished notes or personal documents to cloud AI services transmits sensitive data to third-party servers and often requires per-token API subscriptions.
 
 ---
 
 ## Solution
 
-StudyBuddy Local provides a single, unified local workstation where students can paste text or upload `.txt` / `.pdf` study files. 
-
-It connects directly to a local **Ollama** inference instance, keeping all study material private on the device while offering core AI workflows:
-- **Summarization** into structured notes
-- **Concept Explanations** with step-by-step breakdowns
-- **High-Yield Revision Bullet Points** targeted for exams
-- **Interactive Quiz Generation** with instant scoring and explanations
-- **Grounded Q&A** to answer questions directly from notes
+StudyBuddy Local provides a local workstation where students can paste text or upload `.txt` and `.pdf` files. It communicates with a local **Ollama** server, keeping all data on the user's computer while offering five AI actions:
+- **Summarize:** Generate structured key concept overviews
+- **Explain:** Break down complex topics or definitions
+- **Make Revision Notes:** Extract high-yield exam bullet points
+- **Generate Quiz:** Create multiple-choice questions with answer keys and explanations
+- **Ask:** Answer specific questions grounded in the supplied notes
 
 ---
 
 ## Features
 
-- **100% Local Inference:** No data leaves your machine. Zero external network calls required for AI processing.
-- **Multi-Format Input:** Supports raw text input as well as uploaded `.txt` and `.pdf` files.
-- **Local AI Status Monitor:** Real-time detection of local Ollama server status and available open-weight models.
-- **Model Switching:** Easily select between installed local models (e.g., `llama3.2`, `qwen2.5:3b`).
-- **Exam Revision Generator:** Instant extraction of high-yield definitions, key facts, and formulas.
-- **Interactive Quiz Engine:** Generates multiple-choice questions with options, answer submission, automated score calculation, and detailed rationale.
-- **Grounded Q&A Mode:** Ask questions directly against your study notes with conversation history.
-- **Robust Error Handling:** Clear instructions and copyable CLI commands when Ollama is offline or models are missing.
+- **100% Local Inference:** All AI processing runs on your computer via Ollama. No data is sent to external AI services.
+- **Multi-Format Document Input:** Supports raw text input and `.txt` / `.pdf` file uploads.
+- **Local AI Status Monitor:** Real-time connection detection and list of installed local open-weight models.
+- **Model Selector:** Switch between installed local models (tested with `qwen2.5:0.5b`).
+- **Interactive Quiz Engine:** Takes quizzes with option selection, automated score calculation, and rationales.
+- **Grounded Q&A:** Ask questions directly against the uploaded study material with Q&A history.
+- **Error Handling:** Clear instructions and CLI commands when Ollama is offline or models are missing.
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React 19, Vite, Tailwind CSS, Lucide Icons
-- **Backend:** Python 3.9+, Flask, Flask-CORS, PyPDF
-- **AI Inference Layer:** Ollama (Local open-weight LLMs like Llama 3.2 3B or Qwen 2.5 3B)
+- **Frontend:** React, Vite, Tailwind CSS, Lucide Icons
+- **Backend:** Python, Flask, Flask-CORS, PyPDF
+- **AI Inference Engine:** Ollama (Tested with open-weight model `qwen2.5:0.5b`)
 
 ---
 
@@ -60,55 +59,44 @@ It connects directly to a local **Ollama** inference instance, keeping all study
 User
   │
   ▼
-React (Vite Frontend @ http://localhost:3000)
+React (Frontend @ http://localhost:3000)
   │
   ▼
-Flask (Python Backend @ http://localhost:5001)
+Flask (Backend @ http://localhost:5001)
   │
   ▼
-Ollama (Local Inference API @ http://localhost:11434)
+Ollama (Local Inference @ http://localhost:11434)
   │
   ▼
-Open-Weight Model (Llama 3.2 3B / Qwen2.5 3B)
+Open-Weight Model (qwen2.5:0.5b)
 ```
 
 ---
 
-## Why Open Innovation Matters
+## Privacy
 
-Building with local, open-weight models offers distinct advantages:
-
-1. **Complete Privacy:** Study materials, unpublished research, and personal notes remain entirely on the local device.
-2. **Model Flexibility:** Users can swap models based on hardware capabilities (e.g., `llama3.2:3b` for light laptops, `qwen2.5:7b` for high-end setups) or fine-tune models for specific domain subjects.
-3. **No Per-Request API Costs:** Once installed, running queries does not require recurring per-token cloud API subscriptions.
-4. **Full System Control:** Developers and students can inspect, modify, and extend the surrounding application without vendor lock-in.
-
-*Note: Running models locally requires sufficient system memory (RAM/VRAM), and open-weight models have hardware-dependent inference speeds.*
+- All study material text remains on your local machine.
+- Flask communicates directly with the local Ollama daemon on `http://localhost:11434`.
+- Zero requests are sent to OpenAI, Gemini, Claude, or any external cloud AI provider.
 
 ---
 
-## Running Locally
-
-Follow these steps to run StudyBuddy Local on your computer:
+## Local Setup
 
 ### 1. Prerequisites
-- **Node.js** (v18 or higher)
-- **Python** (v3.9 or higher)
+- **Node.js** (v18+)
+- **Python** (v3.9+)
 - **Ollama** (Download from [ollama.com](https://ollama.com))
 
-### 2. Pull an Open-Weight Model
-Open your terminal and pull a recommended lightweight model:
-```bash
-ollama pull llama3.2
-```
-
-Make sure the Ollama server is running:
+### 2. Start Ollama and Pull the Tested Model
+In a terminal, start Ollama and pull the tested model:
 ```bash
 ollama serve
+ollama pull qwen2.5:0.5b
 ```
 
-### 3. Start the Flask Backend
-In a new terminal window:
+### 3. Start the Backend
+In a new terminal:
 ```bash
 cd backend
 python3 -m venv venv
@@ -116,61 +104,35 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
 ```
-The backend server will run on `http://localhost:5001`.
+The backend server runs on `http://localhost:5001`.
 
-### 4. Start the React Frontend
-In another terminal window:
+### 4. Start the Frontend
+In another terminal:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-Open your browser and navigate to `http://localhost:3000`.
+Open `http://localhost:3000` in your browser.
 
 ---
 
-## Troubleshooting Ollama Connection Issues
+## Troubleshooting
 
-- **Status Shows "Disconnected":** Ensure Ollama is running by opening a terminal and executing `ollama serve`.
-- **Model Not Found Error:** Run `ollama pull llama3.2` to download the default model weights.
-- **Port Conflicts:** The backend defaults to port `5001` (to avoid macOS AirPlay conflicts on port 5000) and Ollama communicates on port `11434`.
+- **Local AI Status Disconnected:** Run `ollama serve` in a terminal window to start the Ollama daemon.
+- **Model Not Found Error:** Run `ollama pull qwen2.5:0.5b` to download the required model weights.
+- **Port Conflict:** The backend defaults to port `5001` to avoid macOS AirPlay Receiver conflicts on port 5000.
 
 ---
 
-## Project Structure
+## Limitations
 
-```
-Dev x hacktober fest/
-├── backend/
-│   ├── app.py            # Flask API routes
-│   ├── config.py         # App configuration & environment defaults
-│   ├── ollama_client.py  # Ollama API client & prompt handlers
-│   ├── pdf_utils.py      # PDF and text file extraction helpers
-│   ├── requirements.txt  # Python backend dependencies
-│   └── venv/             # Python virtual environment
-├── frontend/
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.js    # Vite configuration & backend proxy
-│   └── src/
-│       ├── App.jsx       # Main application layout & state
-│       ├── index.css     # Base styles & Tailwind setup
-│       ├── main.jsx
-│       └── components/
-│           ├── Navbar.jsx        # Top bar & Local AI indicator
-│           ├── Sidebar.jsx       # Navigation tabs
-│           ├── StudyWorkspace.jsx# Upload/Paste & action buttons
-│           ├── QuizMode.jsx      # Interactive MCQ generator & test
-│           ├── AskMode.jsx       # Grounded Q&A conversation mode
-│           └── StatusView.jsx    # Ollama diagnostics & setup guide
-├── README.md
-└── DEV_SUBMISSION.md
-```
+- **Hardware Dependency:** Local AI performance depends on your laptop/computer RAM, CPU, and GPU capability.
+- **Text Extraction:** PDF extraction works on text-based PDFs (scanned image PDFs without OCR are unreadable).
 
 ---
 
 ## Future Improvements
 
-- **Local Vector Database Integration (RAG):** Adding ChromaDB or FAISS for multi-document semantic search over large textbook libraries.
-- **Flashcard Export:** Exporting revision points directly to Anki (.apkg) format.
-- **Audio Note Transcription:** Local speech-to-text processing using Whisper.
+- **Local Vector Search (RAG):** Adding ChromaDB or FAISS for semantic search over large textbook libraries.
+- **Anki Flashcard Export:** Exporting revision points to Anki card decks.
