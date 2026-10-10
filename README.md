@@ -6,7 +6,6 @@
 
 ## What It Is
 
-[ADD REAL FRIEND STORY HERE]
 
 **StudyBuddy Local** is a private study companion designed for students who struggle with organizing, understanding, and revising scattered study material across multiple subjects. 
 
